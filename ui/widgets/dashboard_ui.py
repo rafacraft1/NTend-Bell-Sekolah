@@ -61,7 +61,12 @@ def _update_datetime(parent):
     parent.analog.setText(f"{hour:02d}:{minute:02d}:{second:02d}")
     hari_list = config["localization"]["days"]
     bulan_list = config["localization"]["months"]
+
     day_of_week = now.date().dayOfWeek()
     day_name = hari_list[day_of_week]
-    date_str = f"{day_name}, {now.date().day()} {bulan_list[now.date().month()]} {now.date().year()}"
+
+    # 🔧 FIX: convert month index ke string biar cocok dengan JSON
+    bulan = bulan_list[str(now.date().month())]
+
+    date_str = f"{day_name}, {now.date().day()} {bulan} {now.date().year()}"
     parent.date_label.setText(date_str)
